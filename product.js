@@ -15,7 +15,7 @@ const products = [
         category: "Electronics",
         name: "Bluetooth Speaker",
         price: 1999,
-        discountedPrice: 0,
+        discountedPrice: 899,
         image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400",
         description: "Portable bass speaker with excellent sound quality"
     },
@@ -96,3 +96,4 @@ const products = [
         }
     }
 ];
+
