@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeeMart - Your Quick Commerce Store</title>
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/XYDKqhwg/favicon-icon.png">
+    <link rel="apple-touch-icon" href="https://i.postimg.cc/XYDKqhwg/favicon-icon.png">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Okra:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-container">
+            <div class="login-header">
+                <img src="https://i.postimg.cc/GtQGCSLG/logo.png" alt="LeeMart" class="login-logo">
+                <h2>Welcome to LeeMart</h2>
+                <p>Login to start shopping</p>
+            </div>
+            <form id="loginForm" class="login-form" onsubmit="return false;">
+                <div class="input-group">
+                    <input type="text" id="username" placeholder="Username" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+                <div id="loginError" class="error-message"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="mainApp" class="main-app" style="display: none;">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="header-left">
+                    <img src="https://i.postimg.cc/GtQGCSLG/logo.png" alt="LeeMart" class="header-logo">
+                </div>
+                <div class="header-center">
+                    <div class="search-container">
+                        <input type="text" id="searchInput" placeholder="Search for products..." class="search-input">
+                        <button class="search-btn">🔍</button>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="cart-icon" id="cartIcon">
+                        🛒
+                        <span id="cartCount" class="cart-count">0</span>
+                    </div>
+                    <div class="profile-section">
+                        <img id="userProfilePic" src="" alt="Profile" class="profile-pic">
+                        <span id="username-display" class="username"></span>
+                        <button id="logoutBtn" class="logout-btn">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Category Filter -->
+        <div class="category-filter">
+            <div class="category-container">
+                <button class="category-btn active" data-category="all">All</button>
+                <div id="categoryButtons"></div>
+            </div>
+        </div>
+
+        <!-- Products Section -->
+        <main class="products-section">
+            <div class="products-container">
+                <div id="productsGrid" class="products-grid">
+                    <!-- Products will be loaded here -->
+                </div>
+            </div>
+        </main>
+
+        <!-- Cart Sidebar -->
+        <div id="cartSidebar" class="cart-sidebar">
+            <div class="cart-header">
+                <h3>My Cart</h3>
+                <button id="closeCart" class="close-cart">✕</button>
+            </div>
+            <div id="cartItems" class="cart-items">
+                <!-- Cart items will be loaded here -->
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <div class="total-items">Total Items: <span id="totalItems">0</span></div>
+                    <div class="grand-total">Grand Total: ₹<span id="grandTotal">0</span></div>
+                </div>
+                <button id="checkoutBtn" class="checkout-btn">Checkout via WhatsApp</button>
+            </div>
+        </div>
+
+        <!-- Cart Overlay -->
+        <div id="cartOverlay" class="cart-overlay"></div>
+    </div>
+
+    <!-- Product Modal -->
+    <div id="productModal" class="product-modal">
+        <div class="modal-content">
+            <button class="close-modal">✕</button>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <script src="users.js"></script>
+    <script src="products.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
