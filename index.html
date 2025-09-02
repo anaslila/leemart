@@ -4,110 +4,583 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LeeMart - Your Quick Commerce Store</title>
-    <link rel="icon" type="image/png" href="https://i.postimg.cc/XYDKqhwg/favicon-icon.png">
-    <link rel="apple-touch-icon" href="https://i.postimg.cc/XYDKqhwg/favicon-icon.png">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛒</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Okra:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Okra', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        /* Login Screen */
+        .login-screen {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .login-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+            background: url('https://i.postimg.cc/GtQGCSLG/logo.png') center/contain no-repeat, #667eea;
+            border-radius: 12px;
+        }
+
+        .login-container h2 {
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .login-container p {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .input-group {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Okra', sans-serif;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Okra', sans-serif;
+        }
+
+        .error-message {
+            color: #e53e3e;
+            margin-top: 1rem;
+            font-size: 14px;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header-logo {
+            height: 40px;
+            width: 40px;
+            background: url('https://i.postimg.cc/GtQGCSLG/logo.png') center/contain no-repeat, #667eea;
+            border-radius: 8px;
+        }
+
+        .search-input {
+            flex: 1;
+            max-width: 500px;
+            padding: 12px 16px;
+            border: 2px solid #e1e5e9;
+            border-radius: 25px;
+            font-size: 16px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .cart-icon {
+            position: relative;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #e53e3e;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logout-btn {
+            background: #f56565;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        /* Products Section */
+        .products-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 1rem;
+        }
+
+        .product-category {
+            color: #666;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .product-pricing {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .current-price {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .original-price {
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .discount-badge {
+            background: #48bb78;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 10px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Login Screen -->
     <div id="loginScreen" class="login-screen">
         <div class="login-container">
-            <div class="login-header">
-                <img src="https://i.postimg.cc/GtQGCSLG/logo.png" alt="LeeMart" class="login-logo">
-                <h2>Welcome to LeeMart</h2>
-                <p>Login to start shopping</p>
+            <div class="login-logo"></div>
+            <h2>Welcome to LeeMart</h2>
+            <p>Login to start shopping</p>
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Username" required>
             </div>
-            <form id="loginForm" class="login-form" onsubmit="return false;">
-                <div class="input-group">
-                    <input type="text" id="username" placeholder="Username" required>
-                </div>
-                <div class="input-group">
-                    <input type="password" id="password" placeholder="Password" required>
-                </div>
-                <button type="submit" class="login-btn">Login</button>
-                <div id="loginError" class="error-message"></div>
-            </form>
+            <div class="input-group">
+                <input type="password" id="password" placeholder="Password" required>
+            </div>
+            <button id="loginBtn" class="login-btn">Login</button>
+            <div id="loginError" class="error-message"></div>
         </div>
     </div>
 
     <!-- Main App -->
-    <div id="mainApp" class="main-app" style="display: none;">
+    <div id="mainApp" style="display: none;">
         <!-- Header -->
         <header class="header">
             <div class="header-content">
-                <div class="header-left">
-                    <img src="https://i.postimg.cc/GtQGCSLG/logo.png" alt="LeeMart" class="header-logo">
-                </div>
-                <div class="header-center">
-                    <div class="search-container">
-                        <input type="text" id="searchInput" placeholder="Search for products..." class="search-input">
-                        <button class="search-btn">🔍</button>
-                    </div>
-                </div>
+                <div class="header-logo"></div>
+                <input type="text" id="searchInput" placeholder="Search for products..." class="search-input">
                 <div class="header-right">
                     <div class="cart-icon" id="cartIcon">
                         🛒
                         <span id="cartCount" class="cart-count">0</span>
                     </div>
                     <div class="profile-section">
-                        <img id="userProfilePic" src="" alt="Profile" class="profile-pic">
-                        <span id="username-display" class="username"></span>
+                        <span id="username-display">User</span>
                         <button id="logoutBtn" class="logout-btn">Logout</button>
                     </div>
                 </div>
             </div>
         </header>
 
-        <!-- Category Filter -->
-        <div class="category-filter">
-            <div class="category-container">
-                <button class="category-btn active" data-category="all">All</button>
-                <div id="categoryButtons"></div>
-            </div>
-        </div>
-
         <!-- Products Section -->
         <main class="products-section">
-            <div class="products-container">
-                <div id="productsGrid" class="products-grid">
-                    <!-- Products will be loaded here -->
-                </div>
+            <h1>Products</h1>
+            <div id="productsGrid" class="products-grid">
+                <!-- Products will load here -->
             </div>
         </main>
-
-        <!-- Cart Sidebar -->
-        <div id="cartSidebar" class="cart-sidebar">
-            <div class="cart-header">
-                <h3>My Cart</h3>
-                <button id="closeCart" class="close-cart">✕</button>
-            </div>
-            <div id="cartItems" class="cart-items">
-                <!-- Cart items will be loaded here -->
-            </div>
-            <div class="cart-footer">
-                <div class="cart-total">
-                    <div class="total-items">Total Items: <span id="totalItems">0</span></div>
-                    <div class="grand-total">Grand Total: ₹<span id="grandTotal">0</span></div>
-                </div>
-                <button id="checkoutBtn" class="checkout-btn">Checkout via WhatsApp</button>
-            </div>
-        </div>
-
-        <!-- Cart Overlay -->
-        <div id="cartOverlay" class="cart-overlay"></div>
     </div>
 
-    <!-- Product Modal -->
-    <div id="productModal" class="product-modal">
-        <div class="modal-content">
-            <button class="close-modal">✕</button>
-            <div id="modalContent"></div>
-        </div>
-    </div>
+    <script>
+        console.log("Script starting...");
 
-    <script src="users.js"></script>
-    <script src="products.js"></script>
-    <script src="script.js"></script>
+        // Users and products data
+        const users = [
+            { username: "admin", password: "admin123" },
+            { username: "anas", password: "anas123" },
+            { username: "john", password: "john123" },
+            { username: "sarah", password: "sarah123" }
+        ];
+
+        const products = [
+            {
+                category: "Dairy",
+                name: "Amul Milk",
+                price: 29,
+                discountedPrice: 25,
+                image: "https://images.unsplash.com/photo-1563636619-e9143da7973b?w=400",
+                description: "Fresh Amul milk 500ml"
+            },
+            {
+                category: "Electronics",
+                name: "Bluetooth Speaker",
+                price: 1999,
+                discountedPrice: 0,
+                image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400",
+                description: "Portable bass speaker"
+            },
+            {
+                category: "Beverages",
+                name: "Coca Cola",
+                price: 45,
+                discountedPrice: 40,
+                image: "https://images.unsplash.com/photo-1554866585-cd94860890b7?w=400",
+                description: "Refreshing cold drink 330ml"
+            },
+            {
+                category: "Snacks",
+                name: "Potato Chips",
+                price: 25,
+                discountedPrice: 20,
+                image: "https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=400",
+                description: "Crispy salted potato chips"
+            },
+            {
+                category: "Fruits",
+                name: "Fresh Bananas",
+                price: 60,
+                discountedPrice: 50,
+                image: "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=400",
+                description: "Fresh ripe bananas per dozen"
+            },
+            {
+                category: "Electronics",
+                name: "Wireless Earbuds",
+                price: 2999,
+                discountedPrice: 2499,
+                image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400",
+                description: "True wireless earbuds"
+            }
+        ];
+
+        let currentUser = null;
+        let cart = [];
+
+        // Initialize app when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("DOM loaded, setting up app...");
+            
+            // Check if already logged in
+            const savedUser = localStorage.getItem('leetmart_user');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                showMainApp();
+            }
+
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            // Login
+            document.getElementById('loginBtn').onclick = attemptLogin;
+            document.getElementById('password').onkeypress = function(e) {
+                if (e.key === 'Enter') attemptLogin();
+            };
+
+            // Logout
+            document.getElementById('logoutBtn').onclick = function() {
+                localStorage.removeItem('leetmart_user');
+                currentUser = null;
+                cart = [];
+                showLoginScreen();
+            };
+
+            // Search
+            document.getElementById('searchInput').oninput = function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                const filtered = searchTerm ? 
+                    products.filter(p => p.name.toLowerCase().includes(searchTerm) || 
+                                         p.category.toLowerCase().includes(searchTerm)) : 
+                    products;
+                loadProducts(filtered);
+            };
+
+            // Cart click
+            document.getElementById('cartIcon').onclick = function() {
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                
+                if (totalItems > 0) {
+                    generateWhatsAppOrder();
+                } else {
+                    alert('Cart is empty!');
+                }
+            };
+        }
+
+        function attemptLogin() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const errorDiv = document.getElementById('loginError');
+
+            console.log("Login attempt for:", username);
+
+            if (!username || !password) {
+                errorDiv.textContent = 'Please enter username and password';
+                return;
+            }
+
+            const user = users.find(u => u.username === username && u.password === password);
+
+            if (user) {
+                console.log("Login successful!");
+                currentUser = user;
+                localStorage.setItem('leetmart_user', JSON.stringify(user));
+                showMainApp();
+            } else {
+                errorDiv.textContent = 'Invalid username or password';
+            }
+        }
+
+        function showLoginScreen() {
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('mainApp').style.display = 'none';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('loginError').textContent = '';
+        }
+
+        function showMainApp() {
+            console.log("Showing main app...");
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('mainApp').style.display = 'block';
+
+            // Update user info
+            document.getElementById('username-display').textContent = currentUser.username;
+
+            // Load all products
+            loadProducts(products);
+            updateCartDisplay();
+        }
+
+        function loadProducts(productsToShow) {
+            console.log("Loading products:", productsToShow.length);
+            const productsGrid = document.getElementById('productsGrid');
+
+            if (productsToShow.length === 0) {
+                productsGrid.innerHTML = '<p>No products found</p>';
+                return;
+            }
+
+            const html = productsToShow.map((product, index) => {
+                const hasDiscount = product.discountedPrice > 0;
+                const finalPrice = hasDiscount ? product.discountedPrice : product.price;
+                const discountPercent = hasDiscount ? 
+                    Math.round(((product.price - product.discountedPrice) / product.price) * 100) : 0;
+
+                return `
+                    <div class="product-card">
+                        <img src="${product.image}" alt="${product.name}" class="product-image" 
+                             onerror="this.style.background='#f0f0f0'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.innerHTML='No Image';">
+                        <div class="product-info">
+                            <div class="product-category">${product.category}</div>
+                            <div class="product-name">${product.name}</div>
+                            <div class="product-description">${product.description}</div>
+                            <div class="product-pricing">
+                                <span class="current-price">₹${finalPrice}</span>
+                                ${hasDiscount ? `
+                                    <span class="original-price">₹${product.price}</span>
+                                    <span class="discount-badge">${discountPercent}% OFF</span>
+                                ` : ''}
+                            </div>
+                            <button class="add-to-cart-btn" onclick="addToCart(${index})">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            productsGrid.innerHTML = html;
+            console.log("Products loaded successfully!");
+        }
+
+        function addToCart(productIndex) {
+            const product = products[productIndex];
+            const finalPrice = product.discountedPrice > 0 ? product.discountedPrice : product.price;
+
+            const existingItem = cart.find(item => item.productIndex === productIndex);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    productIndex,
+                    product,
+                    quantity: 1,
+                    price: finalPrice
+                });
+            }
+
+            updateCartDisplay();
+            console.log("Added to cart:", product.name);
+        }
+
+        function updateCartDisplay() {
+            const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = totalQuantity;
+        }
+
+        function generateWhatsAppOrder() {
+            const now = new Date();
+            const orderId = `LM-${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}`;
+
+            let message = `🧾 LeeMart Order Invoice\n`;
+            message += `Order ID: ${orderId}\n\n`;
+            message += `Customer: ${currentUser.username}\n\n`;
+            message += `Items:\n`;
+
+            cart.forEach((item, index) => {
+                message += `${index + 1}. ${item.product.name} - ₹${item.price} x ${item.quantity} = ₹${item.price * item.quantity}\n`;
+            });
+
+            const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            message += `\n----------------------------------\n`;
+            message += `Total Items: ${totalQuantity}\n`;
+            message += `Grand Total: ₹${totalPrice}\n\n`;
+            message += `> Don't edit this text! Editing might face cancellation in order.`;
+
+            const phoneNumber = '+918879706046';
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+            window.open(whatsappUrl, '_blank');
+
+            // Clear cart
+            cart = [];
+            updateCartDisplay();
+        }
+    </script>
 </body>
 </html>
